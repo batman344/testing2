@@ -1,0 +1,37 @@
+#!/bin/bash
+
+user=root
+pass=root
+dbname=testlink
+backuppath="/home/sat/vitad-sqldump"
+date=$(date +"%m-%d-%Y")
+
+
+        # mysqldump command
+mysqldump  --user=$user --password=$pass $dbname > $backuppath/$dbname$date.sql
+
+
+echo " ============= Backing Up ============= "
+echo
+echo " ==========Finnish backing up========== "
+
+echo
+
+cd /home/sat/vitad-sqldump
+if [ -e $dbname$date.sql ]
+then
+arch_file=$dbname$date.sql.tar.gz
+cd $backuppath
+
+tar czf $arch_file $dbname$date.sql
+
+echo
+rm $dbname$date.sql
+else
+echo "no dump files"
+fi
+
+datelog=$(date +"%m-%d-%Y_%H:%M:%S")
+
+scp -rC -p2122 /home/sat/vitad-sqldump/$arch_file sat@172.16.0.135://mnt/ZFS/Files/VMs-database-backups/vitadplus
+echo "transfered dump to hellios on $datelog" >> /home/sat/vitad-sqldump/dump-history.log
