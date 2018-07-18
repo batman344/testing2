@@ -33,5 +33,5 @@ fi
 
 datelog=$(date +"%m-%d-%Y_%H:%M:%S")
 
-scp -rC -p2122 /home/sat/vitad-sqldump/$arch_file sat@172.16.0.135://mnt/ZFS/Files/VMs-database-backups/vitadplus
+
 echo "transfered dump to hellios on $datelog" >> /home/sat/vitad-sqldump/dump-history.log
