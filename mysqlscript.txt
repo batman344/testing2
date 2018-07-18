@@ -32,6 +32,3 @@ echo "no dump files"
 fi
 
 datelog=$(date +"%m-%d-%Y_%H:%M:%S")
-
-
-echo "transfered dump to hellios on $datelog" >> /home/sat/vitad-sqldump/dump-history.log
